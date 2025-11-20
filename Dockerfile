@@ -4,7 +4,7 @@ RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 RUN apt-get install maven -y
 WORKDIR /app
-COPY . .
+COPY . . --chown=1000:1000/
 
 RUN mvn clean install -DskipTests
 
@@ -13,4 +13,4 @@ EXPOSE 8080
 
 COPY --from=build /app/target/gestao-vagas-0.0.1-SNAPSHOT.jar /app/app.jar
 
-ENTRYPOINT [ "java", "-jar", "app.jar" ]
+ENTRYPOINT [ "java", "-jar", "/app/app.jar" ]
