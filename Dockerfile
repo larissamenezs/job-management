@@ -4,9 +4,14 @@ RUN apt-get update
 RUN apt-get install openjdk-17-jdk -y
 RUN apt-get install maven -y
 WORKDIR /app
-COPY . . --chown=1000:1000/
 
-RUN mvn clean install -DskipTests
+COPY pom.xml .
+
+RUN mvn dependency:resolve
+
+COPY . .
+
+RUN mvn clean install
 
 FROM eclipse-temurin:17-jdk-alpine
 EXPOSE 8080
