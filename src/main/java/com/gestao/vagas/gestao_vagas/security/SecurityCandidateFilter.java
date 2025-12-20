@@ -1,21 +1,17 @@
 package com.gestao.vagas.gestao_vagas.security;
 
 import com.gestao.vagas.gestao_vagas.providers.JWTCandidateProvider;
-import com.gestao.vagas.gestao_vagas.providers.JWTProvider;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.cassandra.CassandraProperties;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
-import java.util.Collections;
 
 @Component
 public class SecurityCandidateFilter extends OncePerRequestFilter {

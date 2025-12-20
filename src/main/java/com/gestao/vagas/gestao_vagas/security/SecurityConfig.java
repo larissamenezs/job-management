@@ -30,18 +30,20 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/candidate/").permitAll()
-                            .requestMatchers("/company/").permitAll()
-                            .requestMatchers("/company/auth").permitAll()
-                            .requestMatchers("/candidate/auth").permitAll()
-                            .requestMatchers(PERMIT_ALL_LIST).permitAll();
-                    auth.anyRequest().authenticated();
-                })
-                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class)
-                .addFilterBefore(securityCompanyFilter, BasicAuthenticationFilter.class);
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/company/auth").permitAll()
+                        .requestMatchers("/candidate/auth").permitAll()
+                        .requestMatchers(PERMIT_ALL_LIST).permitAll()
+                        .requestMatchers("/company/**").authenticated()
+                        .requestMatchers("/candidate/**").authenticated()
+                        .anyRequest().authenticated()
+                )
+                .addFilterBefore(securityCompanyFilter, BasicAuthenticationFilter.class)
+                .addFilterBefore(securityCandidateFilter, BasicAuthenticationFilter.class);
+
         return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {

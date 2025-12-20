@@ -75,7 +75,7 @@ public class CandidateController {
             }),
             @ApiResponse(responseCode = "400", description = "User not found")
     })
-    @SecurityRequirement(name = "jwt_auh")
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> get(HttpServletRequest request) {
 
         var idCandidate = request.getAttribute("candidate_id");
